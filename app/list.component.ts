@@ -12,6 +12,7 @@ import {Config} from "./config";
     <ul>
       <li *ngFor="#grocery of groceryList">
         {{grocery.name}}
+        <button (click)="delete(grocery)">x</button>
       </li>
     </ul>
   `,
@@ -49,6 +50,14 @@ export class ListComponent implements OnInit {
 
         // Clear out the input’s text
         this.grocery = "";
+      });
+  }
+  
+  delete(grocery) {
+    this._groceryListService.delete(grocery.id)
+      .then(() => {
+        var index = this.groceryList.indexOf(grocery);
+        this.groceryList.splice(index, 1);
       });
   }
 }

@@ -41,6 +41,20 @@ export class GroceryListService {
       return new Grocery(data.Result.Id, name);
     });
   }
+  
+  delete(id: string) {
+    return fetch(Config.apiUrl + "Groceries/" + id, {
+      method: "DELETE",
+      headers: {
+        "Authorization": "Bearer " + Config.token,
+        "Content-Type": "application/json"
+      }
+    })
+    .then(handleErrors)
+    .then((response) => {
+      return response.json();
+    });
+  }
 }
 
 function handleErrors(response) {
