@@ -2,6 +2,8 @@ import {Injectable} from "angular2/core";
 import {Config} from "./config";
 import {Grocery} from "./grocery";
 
+declare var fetch: Function;
+
 @Injectable()
 export class GroceryListService {
   load() {

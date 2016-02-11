@@ -2,6 +2,8 @@ import {Injectable} from "angular2/core";
 import {User} from "./user";
 import {Config} from "./config";
 
+declare var fetch: Function;
+
 @Injectable()
 export class UserService {
   login(user: User) {

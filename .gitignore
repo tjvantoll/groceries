@@ -2,3 +2,4 @@ node_modules
 .vscode
 app/**/*.js
 app/**/*.map
+npm-debug.log
