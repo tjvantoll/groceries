@@ -27,11 +27,3 @@ export class UserService {
     });
   }
 }
-
-function handleErrors(response) {
-  if (!response.ok) {
-    console.log(JSON.stringify(response));
-    throw Error(response.statusText);
-  }
-  return response;
-}
