@@ -38,9 +38,9 @@ export class ListComponent implements OnInit {
     }
 
     this._groceryListService.load()
-      .then((groceryList) => {
-        this.groceryList = groceryList;
-      });
+      .subscribe(
+        (groceryList) => { this.groceryList = groceryList; }
+      );
   }
   
   add() {

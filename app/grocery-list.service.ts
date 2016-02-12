@@ -1,4 +1,5 @@
 import {Injectable} from "angular2/core";
+import {Http, Headers} from "angular2/http";
 import {Config} from "./config";
 import {Grocery} from "./grocery";
 
@@ -6,16 +7,17 @@ declare var fetch: Function;
 
 @Injectable()
 export class GroceryListService {
+  constructor(private _http: Http) {}
+
   load() {
-    return fetch(Config.apiUrl + "Groceries", {
-      headers: {
-        "Authorization": "Bearer " + Config.token
-      }
+    var headers = new Headers();
+    headers.append("Authorization", "Bearer " + Config.token);
+
+    return this._http.get(Config.apiUrl + "Groceries", {
+      headers: headers
     })
-    .then(handleErrors)
-    .then((response) => {
-      return response.json();
-    }).then(function(data) {
+    .map(res => res.json())
+    .map((data) => {
       var groceryList = [];
       data.Result.forEach((grocery) => {
         groceryList.push(new Grocery(grocery.Id, grocery.Name));
@@ -23,7 +25,7 @@ export class GroceryListService {
       return groceryList;
     });
   }
-  
+
   add(name: string) {
     return fetch(Config.apiUrl + "Groceries", {
       method: "POST",
