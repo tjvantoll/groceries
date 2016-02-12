@@ -12,7 +12,7 @@ export class UserService {
     var headers = new Headers();
     headers.append("Content-Type", "application/json");
 
-    return this._http.post(
+    var subscription = this._http.post(
       Config.apiUrl + "oauth/token",
       JSON.stringify({
         username: user.email,
@@ -22,8 +22,11 @@ export class UserService {
       { headers: headers }
     )
     .map(res => res.json())
-    .subscribe((data) => {
+    
+    subscription.subscribe((data) => {
       Config.token = data.Result.access_token;
     });
+    
+    return subscription;
   }
 }

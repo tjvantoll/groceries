@@ -55,8 +55,9 @@ export class LoginComponent {
 
   login() {
     this._userService.login(this.user)
-      .add(() => {
-        this._router.navigate(["List"]);
-      });
+      .subscribe(
+        () => this._router.navigate(["List"]),
+        () => alert("Unfortunately we were not able to log you in to the system")
+      );
   }
 }
