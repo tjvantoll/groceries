@@ -3,8 +3,6 @@ import {Http, Headers} from "angular2/http";
 import {Config} from "./config";
 import {Grocery} from "./grocery";
 
-declare var fetch: Function;
-
 @Injectable()
 export class GroceryListService {
   constructor(private _http: Http) {}
@@ -17,7 +15,7 @@ export class GroceryListService {
       headers: headers
     })
     .map(res => res.json())
-    .map((data) => {
+    .map(data => {
       var groceryList = [];
       data.Result.forEach((grocery) => {
         groceryList.push(new Grocery(grocery.Id, grocery.Name));
@@ -27,44 +25,30 @@ export class GroceryListService {
   }
 
   add(name: string) {
-    return fetch(Config.apiUrl + "Groceries", {
-      method: "POST",
-      body: JSON.stringify({
-          Name: name
-      }),
-      headers: {
-        "Authorization": "Bearer " + Config.token,
-        "Content-Type": "application/json"
-      }
-    })
-    .then(handleErrors)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
+    var headers = new Headers();
+    headers.append("Authorization", "Bearer " + Config.token);
+    headers.append("Content-Type", "application/json");
+
+    return this._http.post(
+      Config.apiUrl + "Groceries",
+      JSON.stringify({ Name: name }),
+      { headers: headers }
+    )
+    .map(res => res.json())
+    .map(data => {
       return new Grocery(data.Result.Id, name);
     });
   }
   
   delete(id: string) {
-    return fetch(Config.apiUrl + "Groceries/" + id, {
-      method: "DELETE",
-      headers: {
-        "Authorization": "Bearer " + Config.token,
-        "Content-Type": "application/json"
-      }
-    })
-    .then(handleErrors)
-    .then((response) => {
-      return response.json();
-    });
-  }
-}
+    var headers = new Headers();
+    headers.append("Authorization", "Bearer " + Config.token);
+    headers.append("Content-Type", "application/json");
 
-function handleErrors(response) {
-  if (!response.ok) {
-    console.log(JSON.stringify(response));
-    throw Error(response.statusText);
+    return this._http.delete(
+      Config.apiUrl + "Groceries/" + id,
+      { headers: headers }
+    )
+    .map(res => res.json());
   }
-  return response;
 }

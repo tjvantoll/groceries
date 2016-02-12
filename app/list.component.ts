@@ -39,13 +39,13 @@ export class ListComponent implements OnInit {
 
     this._groceryListService.load()
       .subscribe(
-        (groceryList) => { this.groceryList = groceryList; }
+        groceryList => { this.groceryList = groceryList; }
       );
   }
   
   add() {
     this._groceryListService.add(this.grocery)
-      .then((groceryObject) => {
+      .subscribe(groceryObject => {
         this.groceryList.push(groceryObject);
 
         // Clear out the input’s text
@@ -55,7 +55,7 @@ export class ListComponent implements OnInit {
   
   delete(grocery) {
     this._groceryListService.delete(grocery.id)
-      .then(() => {
+      .subscribe(() => {
         var index = this.groceryList.indexOf(grocery);
         this.groceryList.splice(index, 1);
       });
