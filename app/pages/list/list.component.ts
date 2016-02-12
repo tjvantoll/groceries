@@ -1,8 +1,8 @@
 import {Component, OnInit} from "angular2/core";
 import {Router} from "angular2/router";
-import {Grocery} from "./grocery";
-import {GroceryListService} from "./grocery-list.service";
-import {Config} from "./config";
+import {Grocery} from "../../shared/grocery/grocery";
+import {GroceryListService} from "../../shared/grocery/grocery-list.service";
+import {Config} from "../../shared/config";
 
 @Component({
   selector: "list",

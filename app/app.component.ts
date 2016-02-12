@@ -1,9 +1,9 @@
 import {Component} from "angular2/core";
 import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 
-import {LoginComponent} from "./login.component";
-import {RegisterComponent} from "./register.component";
-import {ListComponent} from "./list.component";
+import {LoginComponent} from "./pages/login/login.component";
+import {RegisterComponent} from "./pages/register/register.component";
+import {ListComponent} from "./pages/list/list.component";
 
 @Component({
   selector: "my-app",
