@@ -6,7 +6,7 @@ import {UserService} from "./user.service"
 @Component({
   selector: "login",
   template:`
-    <h1>{{title}}</h1>
+    <h1>Register</h1>
 
     <div>
       <label>
@@ -21,29 +21,27 @@ import {UserService} from "./user.service"
       </label>
     </div>
     <div>
-      <button (click)="login()">Login</button>
-      <a href="/register">Register</a>
+      <button (click)="register()">Register</button>
     </div>
   `,
   providers: [UserService]
 })
-export class LoginComponent {
-  public title = "Groceries";
+export class RegisterComponent {
   public user = new User();
 
   constructor(
     private _userService: UserService,
     private _router: Router) {
-
-    this.user.email = "nativescriptrocks@telerik.com";
-    this.user.password = "password";
   }
 
-  login() {
-    this._userService.login(this.user)
+  register() {
+    this._userService.register(this.user)
       .subscribe(
-        () => this._router.navigate(["List"]),
-        () => alert("Unfortunately we were not able to log you in to the system")
+        () => {
+          alert("Your account was successfully created");
+          this._router.navigate(["Login"]);
+        },
+        () => alert("Unfortunately we were unable to create your account")
       );
   }
 }

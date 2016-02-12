@@ -7,12 +7,12 @@ import "rxjs/add/operator/map";
 @Injectable()
 export class UserService {
   constructor(private _http: Http) {}
-  
+
   login(user: User) {
     var headers = new Headers();
     headers.append("Content-Type", "application/json");
 
-    var subscription = this._http.post(
+    return this._http.post(
       Config.apiUrl + "oauth/token",
       JSON.stringify({
         username: user.email,
@@ -22,11 +22,21 @@ export class UserService {
       { headers: headers }
     )
     .map(res => res.json())
-    
-    subscription.subscribe((data) => {
-      Config.token = data.Result.access_token;
-    });
-    
-    return subscription;
+    .map(data => Config.token = data.Result.access_token);
+  }
+
+  register(user: User) {
+    var headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this._http.post(
+      Config.apiUrl + "Users",
+      JSON.stringify({
+        Username: user.email,
+        Email: user.email,
+        Password: user.password
+      }),
+      { headers: headers }
+    );
   }
 }
