@@ -6,20 +6,26 @@ import {Config} from "../../shared/config";
 
 @Component({
   selector: "list",
-  template:`
-    <input [(ngModel)]="grocery">
-    <button (click)="add()">Add</button>
+  template:` 
     <ul>
-      <li *ngFor="#grocery of groceryList">
-        {{grocery.name}}
-        <button (click)="delete(grocery)">x</button>
-      </li>
-    </ul>
+        <li>
+            <h1>Add a Grocery Item</h1> 
+        </li>
+        <li>
+           <input [(ngModel)]="grocery">
+              <button (click)="add()">Add</button>
+              <hr> 
+        </li>
+        <li *ngFor="#grocery of groceryList">
+           {{grocery.name}}
+           <button class="delete" (click)="delete(grocery)">x</button>
+        </li>
+     </ul>
   `,
   styles: [`
-    li {
+    input {
       padding: 0.3em;
-    }
+    }    
   `],
   providers: [GroceryListService]
 })

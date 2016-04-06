@@ -6,24 +6,30 @@ import {UserService} from "../../shared/user/user.service"
 @Component({
   selector: "login",
   template:`
-    <h1>{{title}}</h1>
-
-    <div>
-      <label>
-        Email:
-        <input [(ngModel)]="user.email">
-      </label>
-    </div>
-    <div>
-      <label>
-        Password:
-        <input type="password" [(ngModel)]="user.password">
-      </label>
-    </div>
-    <div>
-      <button (click)="login()">Login</button>
-      <a href="/register">Register</a>
-    </div>
+  <div id="wrapper">
+    <section id="login">
+    <header>
+		<span class="avatar"><img src="./app/assets/css/images/logo.png" alt="Groceries"></span>
+	</header>
+        <h1>{{title}}</h1>
+        <div class="field">
+        <label>
+            Email:
+            <input type="text" [(ngModel)]="user.email">
+        </label>
+        </div>
+        <div class="field">
+        <label>
+            Password:
+            <input type="password" [(ngModel)]="user.password">
+        </label>
+        </div>
+        <div class="field center">
+            <button (click)="login()">Login</button>
+            <a href="/register">Register</a>
+        </div>
+    </section>
+   </div>
   `,
   providers: [UserService]
 })
