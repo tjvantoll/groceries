@@ -508,6 +508,10 @@
 		white-space: nowrap;
 	}
 
+	button.plain {
+		background-color: gray;
+	}
+
 		input[type="submit"]:hover,
 		input[type="reset"]:hover,
 		input[type="button"]:hover,
@@ -599,6 +603,16 @@
 		-webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
 		-ms-transition: opacity 1s ease, -ms-transform 1s ease;
 		transition: opacity 1s ease, transform 1s ease;
+	}
+
+	#login.dark {
+		background-color: #301217;
+	}
+	#login.dark h1, #login.dark label {
+		color: white;
+	}
+	#login.dark input {
+		color: black;
 	}
 
 		.avatar {

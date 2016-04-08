@@ -7,42 +7,57 @@ import {UserService} from "../../shared/user/user.service"
   selector: "login",
   template:`
   <div id="wrapper">
-    <section id="login">
-    <header>
-		<span class="avatar"><img src="./app/assets/css/images/logo.png" alt="Groceries"></span>
-	</header>
-        <h1>{{title}}</h1>
-        <div class="field">
-        <label>
-            Email:
-            <input type="text" [(ngModel)]="user.email">
-        </label>
-        </div>
-        <div class="field">
-        <label>
-            Password:
-            <input type="password" [(ngModel)]="user.password">
-        </label>
-        </div>
-        <div class="field center">
-            <button (click)="login()">Login</button>
-            <a href="/register">Register</a>
-        </div>
+    <section id="login" class="{{ isLoggingIn ? '' : 'dark' }}">
+      <header>
+        <span class="avatar">
+          <img src="./app/assets/css/images/logo.png" alt="Groceries logo">
+        </span>
+      </header>
+      <h1>Groceries</h1>
+      <div class="field">
+      <label>
+        Email:
+        <input type="text" [(ngModel)]="user.email">
+      </label>
+      </div>
+      <div class="field">
+      <label>
+        Password:
+        <input type="password" [(ngModel)]="user.password">
+      </label>
+      </div>
+      <div class="field center">
+        <button class="big" (click)="submit()">
+          {{ isLoggingIn ? 'Login' : 'Register' }}
+        </button>
+        <button class="plain" (click)="toggleDisplay()">
+          {{ isLoggingIn ? 'Sign Up' : 'Back to Login' }}
+        </button>
+      </div>
     </section>
-   </div>
+  </div>
   `,
   providers: [UserService]
 })
 export class LoginComponent {
-  public title = "Groceries";
-  public user = new User();
+  user: User;
+  isLoggingIn = true;
 
   constructor(
     private _userService: UserService,
     private _router: Router) {
 
+    this.user = new User();
     this.user.email = "nativescriptrocks@telerik.com";
     this.user.password = "password";
+  }
+
+  submit() {
+    if (this.isLoggingIn) {
+      this.login();
+    } else {
+      this.signUp();
+    }
   }
 
   login() {
@@ -51,5 +66,20 @@ export class LoginComponent {
         () => this._router.navigate(["List"]),
         () => alert("Unfortunately we were not able to log you in to the system")
       );
+  }
+
+  signUp() {
+    this._userService.register(this.user)
+      .subscribe(
+        () => {
+          alert("Your account was successfully created.")
+          this.toggleDisplay();
+        },
+        () => alert("Unfortunately we were unable to create your account.")
+      );
+  }
+
+  toggleDisplay() {
+    this.isLoggingIn = !this.isLoggingIn;
   }
 }

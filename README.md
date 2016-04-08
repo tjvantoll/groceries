@@ -4,5 +4,6 @@ Groceries is a web-based grocery-management app built with Angular 2. To try Gro
 
 ```
 git clone https://github.com/tjvantoll/Groceries.git
+npm install
 npm start
 ```
