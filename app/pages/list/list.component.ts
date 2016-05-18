@@ -22,11 +22,7 @@ import {Config} from "../../shared/config";
       </li>
      </ul>
   `,
-  styles: [`
-    input {
-      padding: 0.3em;
-    }
-  `],
+  styleUrls: ["./app/pages/list/list.css"],
   providers: [GroceryListService]
 })
 export class ListComponent implements OnInit {
