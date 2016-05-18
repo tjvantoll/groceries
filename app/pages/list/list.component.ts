@@ -16,7 +16,7 @@ import {Config} from "../../shared/config";
         <button (click)="add()">Add</button>
         <hr> 
       </li>
-      <li *ngFor="#grocery of groceryList">
+      <li *ngFor="let grocery of groceryList">
         {{grocery.name}}
         <button class="delete" (click)="delete(grocery)">x</button>
       </li>
@@ -60,7 +60,7 @@ export class ListComponent implements OnInit {
   }
   
   delete(grocery) {
-    this._groceryListService.deleteForever(grocery.id)
+    this._groceryListService.deleteForever(grocery)
       .subscribe(() => {
         var index = this.groceryList.indexOf(grocery);
         this.groceryList.splice(index, 1);
