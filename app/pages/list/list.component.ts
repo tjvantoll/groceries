@@ -1,5 +1,5 @@
-import {Component, OnInit} from "angular2/core";
-import {Router} from "angular2/router";
+import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router-deprecated";
 import {Grocery} from "../../shared/grocery/grocery";
 import {GroceryListService} from "../../shared/grocery/grocery-list.service";
 import {Config} from "../../shared/config";
@@ -8,24 +8,24 @@ import {Config} from "../../shared/config";
   selector: "list",
   template:` 
     <ul>
-        <li>
-            <h1>Add a Grocery Item</h1> 
-        </li>
-        <li>
-           <input [(ngModel)]="grocery">
-              <button (click)="add()">Add</button>
-              <hr> 
-        </li>
-        <li *ngFor="#grocery of groceryList">
-           {{grocery.name}}
-           <button class="delete" (click)="delete(grocery)">x</button>
-        </li>
+      <li>
+        <h1>Add a Grocery Item</h1> 
+      </li>
+      <li>
+        <input [(ngModel)]="grocery">
+        <button (click)="add()">Add</button>
+        <hr> 
+      </li>
+      <li *ngFor="#grocery of groceryList">
+        {{grocery.name}}
+        <button class="delete" (click)="delete(grocery)">x</button>
+      </li>
      </ul>
   `,
   styles: [`
     input {
       padding: 0.3em;
-    }    
+    }
   `],
   providers: [GroceryListService]
 })
@@ -60,7 +60,7 @@ export class ListComponent implements OnInit {
   }
   
   delete(grocery) {
-    this._groceryListService.delete(grocery.id)
+    this._groceryListService.deleteForever(grocery.id)
       .subscribe(() => {
         var index = this.groceryList.indexOf(grocery);
         this.groceryList.splice(index, 1);

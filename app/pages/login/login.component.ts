@@ -1,5 +1,5 @@
-import {Component} from "angular2/core";
-import {Router} from "angular2/router";
+import {Component} from "@angular/core";
+import {Router} from "@angular/router-deprecated";
 import {User} from "../../shared/user/user";
 import {UserService} from "../../shared/user/user.service"
 
@@ -48,7 +48,7 @@ export class LoginComponent {
     private _router: Router) {
 
     this.user = new User();
-    this.user.email = "nativescriptrocks@telerik.com";
+    this.user.email = "ngconf@telerik.com";
     this.user.password = "password";
   }
 

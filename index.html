@@ -1,35 +1,31 @@
 <html>
-<head>
-  <title>Groceries</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <title>Groceries</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
 
-  <base href="/">
-  <link rel="stylesheet" href="app/assets/css/main.css">
-  
+    <link rel="stylesheet" href="app/assets/css/main.css">
 
-  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-  <script src="node_modules/systemjs/dist/system.src.js"></script>
-  <script src="node_modules/rxjs/bundles/Rx.js"></script>
-  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-  <script src="node_modules/angular2/bundles/http.min.js"></script>
-  <script src="node_modules/angular2/bundles/router.dev.js"></script>
+    <!-- 1. Load libraries -->
+     <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
 
-  <script>
-    System.config({
-      packages: {
-        app: {
-          format: "register",
-          defaultExtension: "js"
-        }
-      }
-    });
-    System.import("app/main")
-      .then(null, console.error.bind(console));
-  </script>
-</head>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
 
-<body>
-  <my-app>Loading...</my-app>
-</body>
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import("app").catch(function(err) {
+        console.error(err);
+      });
+    </script>
+  </head>
 
+  <!-- 3. Display the application -->
+  <body>
+    <groceries-app>Loading...</groceries-app>
+  </body>
 </html>

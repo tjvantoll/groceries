@@ -1,13 +1,15 @@
-import {Component} from "angular2/core";
-import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
+import {Component} from "@angular/core";
+import {HTTP_PROVIDERS} from "@angular/http";
+import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from "@angular/router-deprecated";
 
 import {LoginComponent} from "./pages/login/login.component";
 import {ListComponent} from "./pages/list/list.component";
 
 @Component({
-  selector: "my-app",
+  selector: "groceries-app",
   template: "<router-outlet></router-outlet>",
-  directives: [ROUTER_DIRECTIVES]
+  directives: [ROUTER_DIRECTIVES],
+  providers: [HTTP_PROVIDERS, ROUTER_PROVIDERS]
 })
 @RouteConfig([
   { path: "/Login", name: "Login", component: LoginComponent, useAsDefault: true },

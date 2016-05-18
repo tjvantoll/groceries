@@ -1,5 +1,5 @@
-import {Injectable} from "angular2/core";
-import {Http, Headers, Response} from "angular2/http";
+import {Injectable} from "@angular/core";
+import {Http, Headers, Response} from "@angular/http";
 import {User} from "./user";
 import {Config} from "../config";
 import {Observable} from "rxjs/Rx";
@@ -10,8 +10,24 @@ import "rxjs/add/operator/map";
 export class UserService {
   constructor(private _http: Http) {}
 
+  register(user: User) {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this._http.post(
+      Config.apiUrl + "Users",
+      JSON.stringify({
+        Username: user.email,
+        Email: user.email,
+        Password: user.password
+      }),
+      { headers: headers }
+    )
+    .catch(this.handleErrors);
+  }
+
   login(user: User) {
-    var headers = new Headers();
+    let headers = new Headers();
     headers.append("Content-Type", "application/json");
 
     return this._http.post(
@@ -30,16 +46,14 @@ export class UserService {
     .catch(this.handleErrors);
   }
 
-  register(user: User) {
-    var headers = new Headers();
+  resetPassword(email) {
+    let headers = new Headers();
     headers.append("Content-Type", "application/json");
 
     return this._http.post(
-      Config.apiUrl + "Users",
+      Config.apiUrl + "Users/resetpassword",
       JSON.stringify({
-        Username: user.email,
-        Email: user.email,
-        Password: user.password
+        Email: email
       }),
       { headers: headers }
     )
