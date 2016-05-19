@@ -15,4 +15,4 @@ import {ListComponent} from "./pages/list/list.component";
   { path: "/Login", name: "Login", component: LoginComponent, useAsDefault: true },
   { path: "/List", name: "List", component: ListComponent }
 ])
-export class AppComponent {}
+export class GroceriesAppComponent {}
