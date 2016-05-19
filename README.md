@@ -9,8 +9,8 @@ npm install -g angular-cli
 Next, clone this repo.
 
 ```
-git clone https://github.com/tjvantoll/Groceries.git
-cd Groceries
+git clone https://github.com/tjvantoll/groceries.git
+cd groceries
 ```
 
 Then, install this app’s dependencies from npm.
