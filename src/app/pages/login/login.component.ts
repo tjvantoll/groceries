@@ -8,24 +8,27 @@ import {UserService} from "../../shared/user/user.service"
   template:`
   <div id="wrapper">
     <section id="login" class="{{ isLoggingIn ? '' : 'dark' }}">
+
       <header>
         <span class="avatar">
           <img src="./app/assets/css/images/logo.png" alt="Groceries logo">
         </span>
       </header>
+
       <h1>Groceries</h1>
       <div class="field">
-      <label>
-        Email:
-        <input type="text" [(ngModel)]="user.email">
-      </label>
+        <label>
+          Email:
+          <input type="text" [(ngModel)]="user.email">
+        </label>
       </div>
       <div class="field">
-      <label>
-        Password:
-        <input type="password" [(ngModel)]="user.password">
-      </label>
+        <label>
+          Password:
+          <input type="password" [(ngModel)]="user.password">
+        </label>
       </div>
+
       <div class="field center">
         <button class="big" (click)="submit()">
           {{ isLoggingIn ? 'Login' : 'Register' }}
@@ -34,6 +37,7 @@ import {UserService} from "../../shared/user/user.service"
           {{ isLoggingIn ? 'Sign Up' : 'Back to Login' }}
         </button>
       </div>
+
     </section>
   </div>
   `,
