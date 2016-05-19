@@ -1,6 +1,12 @@
 # Groceries
 
-Groceries is a web-based grocery-management app built with Angular 2. To run Groceries you’ll first need to install the Angular 2 CLI installed.
+Groceries is a web-based grocery-management app built with Angular 2. The app was built to show how easy Angular 2 makes it to share code across multiple environments. This web implementation shares its services with the [NativeScript Groceries sample](https://github.com/NativeScript/sample-Groceries).
+
+> **TIP**: You can learn more sharing code between web and native apps with Angular 2 by watching [TJ VanToll and Jen Looper’s talk on the topic from ng-conf 2016](https://www.youtube.com/watch?v=R3nyG2xtzeQ).
+
+## Development
+
+To run Groceries you’ll first need to install the Angular 2 CLI installed.
 
 ```
 npm install -g angular-cli
