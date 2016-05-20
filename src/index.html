@@ -10,6 +10,17 @@
   <title>Groceries</title>
   <base href="/">
 
+  <script>
+    // See http://www.backalleycoder.com/2016/05/13/sghpa-the-single-page-app-hack-for-github-pages/
+    (function(){
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect != location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
+
   {{#unless environment.production}}
     <script src="/ember-cli-live-reload.js" type="text/javascript"></script>
   {{/unless}}
