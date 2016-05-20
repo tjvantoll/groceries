@@ -12,17 +12,24 @@ import {UserService} from "../../shared/user/user.service"
 export class LoginComponent {
   user: User;
   isLoggingIn = true;
+  isAuthenticating = false;
 
   constructor(
     private _userService: UserService,
     private _router: Router) {
 
     this.user = new User();
-    this.user.email = "ngconf@telerik.com";
+    this.user.email = "user@nativescript.org";
     this.user.password = "password";
   }
 
   submit() {
+    if (!this.user.isValidEmail()) {
+      alert("Enter a valid email address");
+      return;
+    }
+
+    this.isAuthenticating = true;
     if (this.isLoggingIn) {
       this.login();
     } else {
@@ -33,8 +40,14 @@ export class LoginComponent {
   login() {
     this._userService.login(this.user)
       .subscribe(
-        () => this._router.navigate(["List"]),
-        () => alert("Unfortunately we were not able to log you in to the system")
+        () => {
+          this.isAuthenticating = false;
+          this._router.navigate(["List"]);
+        },
+        () => {
+          alert("Unfortunately we were not able to log you in to the system");
+          this.isAuthenticating = false;
+        }
       );
   }
 
@@ -42,10 +55,14 @@ export class LoginComponent {
     this._userService.register(this.user)
       .subscribe(
         () => {
-          alert("Your account was successfully created.")
+          alert("Your account was successfully created.");
+          this.isAuthenticating = false;
           this.toggleDisplay();
         },
-        () => alert("Unfortunately we were unable to create your account.")
+        () => {
+          alert("Unfortunately we were unable to create your account.");
+          this.isAuthenticating = false;
+        }
       );
   }
 
