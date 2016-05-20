@@ -2,7 +2,7 @@ form {
   display: flex;
 }
 input {
-  width: 80%;
+  flex: 5;
   margin-right: 0.5em;
 }
 li button {

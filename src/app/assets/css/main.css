@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url(font-awesome.min.css);
+@import url("font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300");
 
 /* Box Model */
@@ -12,27 +12,17 @@
 
 /* Basic */
 
-@media screen and (max-width: 480px) {
-  html, body {
-    min-width: 320px;
-  }
-}
-
 html {
   height: 100%;
 }
-
 body {
   height: 100%;
   background-color: #ffffff;
-  background-image:  -moz-linear-gradient(60deg, rgba(0,0,0, 0.5) 5%, rgba(0,0,1, 0.35)), url("../../assets/css/images/bg.jpg");
-  background-image: url("images/overlay.png"), -webkit-linear-gradient(60deg, rgba(0,0,0, 0.5) 5%, rgba(0,0,1, 0.35)), url("../../assets/css/images/bg.jpg");
-  background-image: url("images/overlay.png"), -ms-linear-gradient(60deg, rgba(0,0,0, 0.5) 5%, rgba(0,0,1, 0.35)), url("../../assets/css/images/bg.jpg");
   background-image: url("images/overlay.png"), linear-gradient(60deg, rgba(0,0,0, 0.5) 5%, rgba(0,0,1, 0.35)), url("../../assets/css/images/bg.jpg");
-  background-repeat: repeat,			no-repeat,			no-repeat;
-  background-size: 100px 100px, cover,				cover;
-  background-position: top left,		center center,		bottom center;
-  background-attachment: fixed,			fixed,				fixed;
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size: 100px 100px, cover, cover;
+  background-position: top left, center center, bottom center;
+  background-attachment: fixed, fixed, fixed;
 }
 
 /* Type */
@@ -150,18 +140,7 @@ ul li {
 
 /* Button */
 
-input[type="submit"],
-input[type="reset"],
-input[type="button"],
-button,
-.button {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  -moz-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  -webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  -ms-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+button {
   transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
   display: inline-block;
   height: 2.75em;
@@ -169,26 +148,19 @@ button,
   padding: 0 1.5em;
   background-color: transparent;
   border-radius: 4px;
-  font-weight:bold;
+  font-weight: bold;
   font-size: 1em;
   background-color:#B8D000;
   border: solid 1px #c8cccf;
   color: #FFF !important;
   cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  white-space: nowrap;
 }
 
 button.plain {
   background-color: gray;
 }
 
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-input[type="button"]:hover,
-button:hover,
-.button:hover {
+button:hover {
   border-color: #ff7496;
   color: #ff7496 !important;
 }
@@ -252,32 +224,24 @@ button:disabled,
 }
 
 /* Main */
-#login, #register, .list-page {
-    min-width: 30em;
-}
-#login, #register, .list-page {
-  position: relative;
-  max-width: 100%;
-  padding: 4.5em 3em 3em 3em;
+.login-page, .list-page {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 3em;
   background: #ffffff;
   border-radius: 4px;
-  cursor: default;
   opacity: 0.95;
-  transform-origin: 50% 50%;
-  transform: rotateX(0deg);
-  transition: opacity 1s ease, transform 1s ease;
 }
-.list-page {
-  padding-top: 3em;
+.login-page {
+  padding-top: 4.5em;
 }
-
-#login.dark {
+.login-page.dark {
   background-color: #301217;
 }
-#login.dark h1, #login.dark label {
+.login-page.dark h1, .login-page.dark label {
   color: white;
 }
-#login.dark input {
+.login-page.dark input {
   color: black;
 }
 
@@ -316,49 +280,5 @@ button:disabled,
   .avatar:before {
     left: -2em;
     width: calc(100% + 4em);
-  }
-}
-
-/* Wrapper */
-
-#wrapper, list {
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -moz-align-items: center;
-  -webkit-align-items: center;
-  -ms-align-items: center;
-  align-items: center;
-  -moz-justify-content: space-between;
-  -webkit-justify-content: space-between;
-  -ms-justify-content: space-between;
-  justify-content: space-between;
-  -moz-flex-direction: column;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -moz-perspective: 1000px;
-  -webkit-perspective: 1000px;
-  -ms-perspective: 1000px;
-  perspective: 1000px;
-  position: relative;
-  min-height: 50%;
-  padding: 1.5em;
-  z-index: 2;
-}
-
-#wrapper > * {
-  z-index: 1;
-}
-
-#wrapper:before {
-  content: '';
-  display: block;
-}
-
-@media screen and (max-width: 360px) {
-  #wrapper {
-    padding: 0.75em;
   }
 }
