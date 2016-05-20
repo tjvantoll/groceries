@@ -79,27 +79,12 @@ body.is-loading:after {
 body, input, select, textarea {
   color: #414f57;
   font-family: "Source Sans Pro", Helvetica, sans-serif;
-  font-size: 14pt;
   font-weight: 300;
   line-height: 2;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
 }
 input {
-  text-transform: none;
-}
-
-@media screen and (max-width: 1680px) {
-  body, input, select, textarea {
-    font-size: 11pt;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  body, input, select, textarea {
-    font-size: 10pt;
-    line-height: 1.75;
-  }
+  font-size: 16px;
 }
 
 a {
@@ -215,7 +200,6 @@ form > .field > :last-child {
 label {
   color: #313f47;
   display: block;
-  font-size: 0.9em;
   margin: 0 0 0.75em 0;
 }
 

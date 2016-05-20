@@ -15,7 +15,7 @@ import {UserService} from "../../shared/user/user.service"
         </span>
       </header>
 
-      <h1>Groceries</h1>
+      <h1>GROCERIES</h1>
       <div class="field">
         <label>
           Email:
