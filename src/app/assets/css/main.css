@@ -36,15 +36,7 @@ input {
 }
 
 a {
-  transition: color 0.2s ease, border-color 0.2s ease;
-  color: inherit;
-  text-decoration: none;
-}
-a:before {
-  transition: color 0.2s ease, text-shadow 0.2s ease;
-}
-a:hover {
-  color: #ff7496;
+  color: blue;
 }
 
 strong, b {
@@ -78,12 +70,6 @@ h1 {
   }
 }
 
-hr {
-  border: 0;
-  border-bottom: solid 1px #c8cccf;
-  margin: 3em 0;
-}
-
 /* Form */
 
 .center {
@@ -113,8 +99,6 @@ ul li {
 }
 
 
-
-
 /* Button */
 
 button {
@@ -129,15 +113,11 @@ button {
   font-size: 1em;
   background-color:#B8D000;
   border: solid 1px #c8cccf;
-  color: #FFF !important;
+  color: #FFF;
   cursor: pointer;
 }
 button.plain {
   background-color: gray;
-}
-button:hover {
-  border-color: #ff7496;
-  color: #ff7496 !important;
 }
 button.fit {
   display: block;
@@ -148,6 +128,13 @@ button.fit {
 button.big {
   font-size: 1.35em;
 }
+
+button.link {
+  background: none;
+  color: #1FBDDA;
+  font-weight: normal;
+}
+
 
 input:disabled, button:disabled {
   -moz-pointer-events: none;
