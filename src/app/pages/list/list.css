@@ -8,14 +8,16 @@ input {
 li {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 li img {
-  flex: 0 0 auto;
+  height: 35px;
 }
 .done {
   text-decoration: line-through;
 }
-.delete {
+li button {
   background-color: #ae0001;
-  line-height: 2;
+  color: white;
+  font-weight: normal;
 }
