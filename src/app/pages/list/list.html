@@ -1,0 +1,17 @@
+<div class="list-page">
+  <h1>Add a Grocery Item</h1> 
+
+  <form>
+    <input [(ngModel)]="grocery">
+    <button (click)="add()">Add</button>
+  </form>
+
+  <hr>
+
+  <ul>
+    <li *ngFor="let grocery of groceryList">
+      {{grocery.name}}
+      <button class="delete" (click)="delete(grocery)">x</button>
+    </li>
+  </ul>
+</div>

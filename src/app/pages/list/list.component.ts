@@ -6,22 +6,7 @@ import {Config} from "../../shared/config";
 
 @Component({
   selector: "list",
-  template:` 
-    <ul>
-      <li>
-        <h1>Add a Grocery Item</h1> 
-      </li>
-      <li>
-        <input [(ngModel)]="grocery">
-        <button (click)="add()">Add</button>
-        <hr> 
-      </li>
-      <li *ngFor="let grocery of groceryList">
-        {{grocery.name}}
-        <button class="delete" (click)="delete(grocery)">x</button>
-      </li>
-     </ul>
-  `,
+  templateUrl: "./app/pages/list/list.html",
   styleUrls: ["./app/pages/list/list.css"],
   providers: [GroceryListService]
 })
