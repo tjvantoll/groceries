@@ -267,6 +267,9 @@ button:disabled,
   transform: rotateX(0deg);
   transition: opacity 1s ease, transform 1s ease;
 }
+.list-page {
+  padding-top: 3em;
+}
 
 #login.dark {
   background-color: #301217;
