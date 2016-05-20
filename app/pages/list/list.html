@@ -11,11 +11,11 @@
   <ul>
     <li *ngFor="let grocery of groceryList">
       <img
-        [src]="grocery.done ? '../app/assets/images/checked.png' : '../app/assets/images/unchecked.png'"
+        [src]="grocery.done ? './app/assets/images/checked.png' : './app/assets/images/unchecked.png'"
         (click)="toggleDone(grocery)"
       >
       <span [class.done]="grocery.done">{{ grocery.name }}</span>
-      <button (click)="delete(grocery)">x</button>
+      <button (click)="delete(grocery)">&times;</button>
     </li>
   </ul>
 </div>

@@ -10,23 +10,24 @@
     <div>
       <label>
         Email:
-        <input type="text" [(ngModel)]="user.email">
+        <input type="text" [(ngModel)]="user.email" [disabled]="isAuthenticating">
       </label>
     </div>
 
     <div>
       <label>
         Password:
-        <input type="password" [(ngModel)]="user.password">
+        <input type="password" [(ngModel)]="user.password" [disabled]="isAuthenticating">
       </label>
     </div>
 
     <div class="center">
-      <button class="big" (click)="submit()">
-        {{ isLoggingIn ? 'Login' : 'Register' }}
+      <button class="big" (click)="submit()" [disabled]="isAuthenticating">
+        <img [hidden]="!isAuthenticating" src="./app/assets/images/loading.gif">
+        <span [hidden]="isAuthenticating">{{ isLoggingIn ? 'Login' : 'Register' }}</span>
       </button>
-      <button class="plain" (click)="toggleDisplay()">
-        {{ isLoggingIn ? 'Sign Up' : 'Back to Login' }}
+      <button class="plain" (click)="toggleDisplay()" [disabled]="isAuthenticating">
+        <span>{{ isLoggingIn ? 'Sign Up' : 'Back to Login' }}</span>
       </button>
     </div>
   </form>
