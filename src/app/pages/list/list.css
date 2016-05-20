@@ -5,9 +5,17 @@ input {
   flex: 5;
   margin-right: 0.5em;
 }
-li button {
-  float: right;
+li {
+  display: flex;
+  align-items: center;
+}
+li img {
+  flex: 0 0 auto;
+}
+.done {
+  text-decoration: line-through;
 }
 .delete {
   background-color: #ae0001;
+  line-height: 2;
 }

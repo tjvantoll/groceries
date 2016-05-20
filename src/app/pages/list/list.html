@@ -1,5 +1,5 @@
 <div class="list-page">
-  <h1>Add a Grocery Item</h1> 
+  <h1>Add a Grocery</h1> 
 
   <form>
     <input [(ngModel)]="grocery">
@@ -10,7 +10,11 @@
 
   <ul>
     <li *ngFor="let grocery of groceryList">
-      {{grocery.name}}
+      <img
+        [src]="grocery.done ? '../app/assets/images/checked.png' : '../app/assets/images/unchecked.png'"
+        (click)="toggleDone(grocery)"
+      >
+      <span [class.done]="grocery.done">{{ grocery.name }}</span>
       <button class="delete" (click)="delete(grocery)">x</button>
     </li>
   </ul>

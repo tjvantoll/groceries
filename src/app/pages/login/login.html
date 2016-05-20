@@ -7,20 +7,21 @@
 
   <h1>GROCERIES</h1>
   <form>
-    <div class="field">
+    <div>
       <label>
         Email:
         <input type="text" [(ngModel)]="user.email">
       </label>
     </div>
-    <div class="field">
+
+    <div>
       <label>
         Password:
         <input type="password" [(ngModel)]="user.password">
       </label>
     </div>
 
-    <div class="field center">
+    <div class="center">
       <button class="big" (click)="submit()">
         {{ isLoggingIn ? 'Login' : 'Register' }}
       </button>

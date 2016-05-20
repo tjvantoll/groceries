@@ -39,6 +39,15 @@ export class ListComponent implements OnInit {
         this.grocery = "";
       });
   }
+
+  toggleDone(grocery: Grocery) {
+    this._groceryListService.toggleDoneFlag(grocery)
+      .subscribe(() => {
+        grocery.done = !grocery.done;
+      }, () => {
+        alert("An error occurred managing your grocery list.");
+      });
+  }
   
   delete(grocery) {
     this._groceryListService.deleteForever(grocery)
