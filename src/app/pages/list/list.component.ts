@@ -14,6 +14,8 @@ export class ListComponent implements OnInit {
   groceryList: Array<Grocery>;
   history: Array<Grocery>;
   grocery: string = "";
+
+  isLoading = false;
   isShowingRecent = false;
 
   constructor(
@@ -30,6 +32,7 @@ export class ListComponent implements OnInit {
   }
 
   load() {
+    this.isLoading = true;
     this.groceryList = [];
     this.history = [];
 
@@ -42,6 +45,7 @@ export class ListComponent implements OnInit {
             this.groceryList.unshift(groceryObject);
           }
         });
+        this.isLoading = false;
       });
   }
   
