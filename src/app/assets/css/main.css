@@ -121,22 +121,13 @@ button {
 button.plain {
   background-color: gray;
 }
-button.fit {
-  display: block;
-  width: 100%;
-  margin: 0 0 0.75em 0;
-}
-
 button.big {
   font-size: 1.35em;
 }
-
-button.link {
-  background: none;
-  color: #1FBDDA;
+button.secondary {
+  background-color: #1FBDDA;
   font-weight: normal;
 }
-
 
 input:disabled, button:disabled {
   -moz-pointer-events: none;
