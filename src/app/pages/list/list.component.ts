@@ -3,9 +3,11 @@ import {Router} from "@angular/router-deprecated";
 import {Grocery} from "../../shared/grocery/grocery";
 import {GroceryListService} from "../../shared/grocery/grocery-list.service";
 import {Config} from "../../shared/config";
+import {ActivityIndicator} from "../../components/activity-indicator.component";
 
 @Component({
   selector: "list",
+  directives: [ActivityIndicator],
   templateUrl: "./app/pages/list/list.html",
   styleUrls: ["./app/pages/list/list.css"],
   providers: [GroceryListService]

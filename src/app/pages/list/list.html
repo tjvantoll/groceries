@@ -36,7 +36,4 @@
   </ul>
 </div>
 
-<div class="loading-box" [class.hidden]="!isLoading">
-  <img src="./app/assets/images/loading.gif">
-  <span>Loading</span>
-</div>
+<activity-indicator [isLoading]="isLoading"></activity-indicator>
