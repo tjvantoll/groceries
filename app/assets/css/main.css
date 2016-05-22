@@ -121,22 +121,13 @@ button {
 button.plain {
   background-color: gray;
 }
-button.fit {
-  display: block;
-  width: 100%;
-  margin: 0 0 0.75em 0;
-}
-
 button.big {
   font-size: 1.35em;
 }
-
-button.link {
-  background: none;
-  color: #1FBDDA;
+button.secondary {
+  background-color: #1FBDDA;
   font-weight: normal;
 }
-
 
 input:disabled, button:disabled {
   -moz-pointer-events: none;
@@ -206,21 +197,4 @@ input:disabled, button:disabled {
 
 .hidden {
   display: none !important;
-}
-
-.loading-box {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  padding: 0.5em;
-  background: white;
-  border: solid 1px #c8cccf;
-  border-width: 1px 0 0 1px;
-  display: flex;
-}
-.loading-box img {
-  height: 50px;
-}
-.loading-box span {
-  line-height: 50px;
 }
