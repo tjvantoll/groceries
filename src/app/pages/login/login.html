@@ -10,7 +10,7 @@
     <div>
       <label>
         Email:
-        <input type="text" [(ngModel)]="user.email" [disabled]="isAuthenticating">
+        <input type="email" autocapitalize="off" autocorrect="off" [(ngModel)]="user.email" [disabled]="isAuthenticating">
       </label>
     </div>
 
