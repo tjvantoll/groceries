@@ -4,17 +4,17 @@ import {Grocery} from "../../shared/grocery/grocery";
 import {GroceryListService} from "../../shared/grocery/grocery-list.service";
 import {Config} from "../../shared/config";
 import {ActivityIndicator} from "../../components/activity-indicator.component";
+import {GroceryList} from "./grocery-list.component";
 
 @Component({
   selector: "list",
-  directives: [ActivityIndicator],
+  directives: [ActivityIndicator, GroceryList],
   templateUrl: "./app/pages/list/list.html",
   styleUrls: ["./app/pages/list/list.css"],
   providers: [GroceryListService]
 })
 export class ListComponent implements OnInit {
   groceryList: Array<Grocery>;
-  history: Array<Grocery>;
   grocery: string = "";
 
   isLoading = false;
@@ -34,21 +34,8 @@ export class ListComponent implements OnInit {
   }
 
   load() {
-    this.isLoading = true;
-    this.groceryList = [];
-    this.history = [];
-
     this._groceryListService.load()
-      .subscribe(loadedGroceries => {
-        loadedGroceries.forEach((groceryObject: Grocery) => {
-          if (groceryObject.deleted) {
-            this.history.unshift(groceryObject);
-          } else {
-            this.groceryList.unshift(groceryObject);
-          }
-        });
-        this.isLoading = false;
-      });
+      .subscribe(loadedGroceries => this.groceryList = loadedGroceries);
   }
   
   add() {
@@ -57,59 +44,6 @@ export class ListComponent implements OnInit {
       return;
     }
 
-    this._groceryListService.add(this.grocery)
-      .subscribe(
-        groceryObject => {
-          this.groceryList.unshift(groceryObject);
-          this.grocery = "";
-        },
-        () => {
-          alert("An error occurred while adding an item to your list.");
-          this.grocery = "";
-        }
-      )
-  }
-
-  toggleDone(grocery: Grocery) {
-    this._groceryListService.toggleDoneFlag(grocery)
-      .subscribe(() => {
-        grocery.done = !grocery.done;
-      }, () => {
-        alert("An error occurred managing your grocery list.");
-      });
-  }
-
-  delete(grocery: Grocery) {
-    this._groceryListService.setDeleteFlag(grocery)
-      .subscribe(() => {
-        var index = this.groceryList.indexOf(grocery);
-        grocery.deleted = true;
-        this.groceryList.splice(index, 1);
-        this.history.push(grocery);
-      });
-  }
-
-  toggleDoneHistory(grocery: Grocery) {
-    grocery.done = !grocery.done;
-  }
-
-  toggleRecent() {
-    let groceriesToRestore = []
-    this.history.forEach((grocery) => {
-      if (grocery.done) {
-        groceriesToRestore.push(grocery);
-      }
-    });
-
-    if (!this.isShowingRecent || groceriesToRestore.length == 0) {
-      this.isShowingRecent = !this.isShowingRecent;
-      return;
-    }
-
-    this._groceryListService.restore(groceriesToRestore)
-      .subscribe(() => {
-        this.isShowingRecent = false;
-        this.load();
-      });
+    // Call the store to add
   }
 }

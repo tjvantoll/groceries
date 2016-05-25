@@ -14,26 +14,9 @@
     </button>
   </div>
 
-  <ul *ngIf="!isShowingRecent">
-    <li *ngFor="let grocery of groceryList">
-      <img
-        [src]="grocery.done ? './app/assets/images/checked.png' : './app/assets/images/unchecked.png'"
-        (click)="toggleDone(grocery)"
-      >
-      <span [class.done]="grocery.done">{{ grocery.name }}</span>
-      <button (click)="delete(grocery)">&times;</button>
-    </li>
-  </ul>
-
-  <ul *ngIf="isShowingRecent">
-    <li *ngFor="let grocery of history">
-      <img
-        [src]="grocery.done ? './app/assets/images/selected.png' : './app/assets/images/nonselected.png'"
-        (click)="toggleDoneHistory(grocery)"
-      >
-      <span>{{ grocery.name }}</span>
-    </li>
-  </ul>
+  <grocery-list
+    [groceries]="groceryList"
+    [showDeleted]="isShowingRecent"></grocery-list>
 </div>
 
 <activity-indicator [isLoading]="isLoading"></activity-indicator>
