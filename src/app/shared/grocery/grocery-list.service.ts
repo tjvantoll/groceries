@@ -6,7 +6,12 @@ import {Observable} from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
 @Injectable()
-export class GroceryListService {
+export class GroceryStore {
+  items: Array<Grocery> = [
+    new Grocery("", "foo", false, false),
+    new Grocery("", "foo2", false, false)
+  ];
+
   constructor(private _http: Http) {}
 
   load() {

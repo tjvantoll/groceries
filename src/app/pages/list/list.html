@@ -16,7 +16,8 @@
 
   <grocery-list
     [groceries]="groceryList"
-    [showDeleted]="isShowingRecent"></grocery-list>
+    [showDeleted]="isShowingRecent"
+    (loaded)="hideLoadingIndicator()"></grocery-list>
 </div>
 
 <activity-indicator [isLoading]="isLoading"></activity-indicator>

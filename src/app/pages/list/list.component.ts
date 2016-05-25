@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router-deprecated";
 import {Grocery} from "../../shared/grocery/grocery";
-import {GroceryListService} from "../../shared/grocery/grocery-list.service";
+import {GroceryStore} from "../../shared/grocery/grocery-list.service";
 import {Config} from "../../shared/config";
 import {ActivityIndicator} from "../../components/activity-indicator.component";
 import {GroceryList} from "./grocery-list.component";
@@ -11,7 +11,7 @@ import {GroceryList} from "./grocery-list.component";
   directives: [ActivityIndicator, GroceryList],
   templateUrl: "./app/pages/list/list.html",
   styleUrls: ["./app/pages/list/list.css"],
-  providers: [GroceryListService]
+  providers: [GroceryStore]
 })
 export class ListComponent implements OnInit {
   groceryList: Array<Grocery>;
@@ -20,9 +20,7 @@ export class ListComponent implements OnInit {
   isLoading = false;
   isShowingRecent = false;
 
-  constructor(
-    private _groceryListService: GroceryListService,
-    private _router: Router) {}
+  constructor(private _router: Router) {}
 
   ngOnInit() {
     if (!Config.token) {
@@ -30,12 +28,11 @@ export class ListComponent implements OnInit {
       return;
     }
 
-    this.load();
+    this.isLoading = true;
   }
 
-  load() {
-    this._groceryListService.load()
-      .subscribe(loadedGroceries => this.groceryList = loadedGroceries);
+  hideLoadingIndicator() {
+    this.isLoading = false;
   }
   
   add() {
@@ -45,5 +42,9 @@ export class ListComponent implements OnInit {
     }
 
     // Call the store to add
+  }
+
+  toggleRecent() {
+    this.isShowingRecent = !this.isShowingRecent;
   }
 }

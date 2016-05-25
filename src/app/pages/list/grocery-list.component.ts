@@ -1,5 +1,6 @@
-import {Component, Input, OnChanges, Pipe, PipeTransform, SimpleChange} from "@angular/core";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, Pipe, PipeTransform, SimpleChange} from "@angular/core";
 import {Grocery} from "../../shared/grocery/grocery";
+import {GroceryStore} from "../../shared/grocery/grocery-list.service";
 
 @Pipe({
   name: "deleted"
@@ -45,6 +46,17 @@ export class DeletedPipe implements PipeTransform {
 export class GroceryList {
   @Input() showDeleted: boolean;
   @Input() groceries: Array<Grocery>;
+  @Output() loaded = new EventEmitter();
+
+  constructor(private _groceryStore: GroceryStore) {}
+
+  ngOnInit() {
+    this._groceryStore.load()
+      .subscribe((loadedGroceries) => {
+        this.groceries = loadedGroceries;
+        this.loaded.emit("loaded");
+      });
+  }
 
   toggleDone(grocery: Grocery) {
     grocery.done = !grocery.done;
