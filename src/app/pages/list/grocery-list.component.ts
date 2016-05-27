@@ -1,10 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, ChangeDetectionStrategy} from "@angular/core";
 import {Grocery} from "../../shared/grocery/grocery";
 import {GroceryStore} from "../../shared/grocery/grocery-list.service";
 
 @Pipe({
-  name: "itemStatus",
-  pure: false // required to update the value when async in nature
+  name: "itemStatus"
 })
 export class ItemStatusPipe implements PipeTransform {
   transform(items: Array<Grocery>, deleted: boolean) {
@@ -32,7 +31,8 @@ export class ItemStatusPipe implements PipeTransform {
     </ul>
   `,
   styleUrls: ["./app/pages/list/grocery-list.css"],
-  pipes: [ItemStatusPipe]
+  pipes: [ItemStatusPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroceryList {
   @Input() showDeleted: boolean;

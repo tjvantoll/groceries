@@ -131,7 +131,7 @@ export class GroceryStore {
   }
 
   publishUpdates() {
-    this.items.next(this._allItems);
+    this.items.next([...this._allItems]);
   }
 
   handleErrors(error: Response) {
