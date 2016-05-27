@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, Pipe, PipeTransform, SimpleChange} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform} from "@angular/core";
 import {Grocery} from "../../shared/grocery/grocery";
 import {GroceryStore} from "../../shared/grocery/grocery-list.service";
-import {Observable, BehaviorSubject} from "rxjs/Rx";
 
 @Pipe({
   name: "itemStatus",
@@ -18,7 +17,6 @@ export class ItemStatusPipe implements PipeTransform {
 
 @Component({
   selector: "grocery-list",
-  inputs: ["showDeleted"],
   template: `
     <ul>
       <li *ngFor="let grocery of store.items | async | itemStatus:showDeleted">
