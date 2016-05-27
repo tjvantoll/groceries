@@ -18,27 +18,18 @@ export class ItemStatusPipe implements PipeTransform {
 
 @Component({
   selector: "grocery-list",
-  inputs: ["showDeleted", "groceries"],
+  inputs: ["showDeleted"],
   template: `
     <ul>
       <li *ngFor="let grocery of store.items | async | itemStatus:showDeleted">
         <img
-          *ngIf="!grocery.deleted"
-          [src]="grocery.done ? './app/assets/images/checked.png' : './app/assets/images/unchecked.png'"
+          [src]="imageSource(grocery)"
           (click)="toggleDone(grocery)">
         <span
-          *ngIf="!grocery.deleted"
-          [class.done]="grocery.done">{{ grocery.name }}</span>
+          [class.done]="grocery.done && !grocery.deleted">{{ grocery.name }}</span>
         <button
           *ngIf="!grocery.deleted"
           (click)="delete(grocery)">&times;</button>
-
-        <img
-          *ngIf="grocery.deleted"
-          [src]="grocery.done ? './app/assets/images/selected.png' : './app/assets/images/nonselected.png'"
-          (click)="toggleDone(grocery)">
-        <span
-          *ngIf="grocery.deleted">{{ grocery.name }}</span>
       </li>
     </ul>
   `,
@@ -54,6 +45,13 @@ export class GroceryList {
   ngOnInit() {
     this.store.load()
       .subscribe(() => this.loaded.emit("loaded"));
+  }
+
+  imageSource(grocery) {
+    if (grocery.deleted) {
+      return grocery.done ? "./app/assets/images/selected.png" : "./app/assets/images/nonselected.png"
+    }
+    return grocery.done ? "./app/assets/images/checked.png" : "./app/assets/images/unchecked.png";
   }
 
   toggleDone(grocery: Grocery) {
