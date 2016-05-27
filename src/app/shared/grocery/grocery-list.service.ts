@@ -2,27 +2,29 @@ import {Injectable} from "@angular/core";
 import {Http, Headers, Response} from "@angular/http";
 import {Config} from "../config";
 import {Grocery} from "./grocery";
-import {Observable} from "rxjs/Rx";
+import {Observable, BehaviorSubject} from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
 @Injectable()
 export class GroceryStore {
-  items: Array<Grocery> = [
-    new Grocery("", "foo", false, false),
-    new Grocery("", "foo2", false, false)
-  ];
+
+  items: BehaviorSubject<Array<Grocery>> = new BehaviorSubject([]);
+  deletedItems: BehaviorSubject<Array<Grocery>> = new BehaviorSubject([]);
+  private _allItems: Array<Grocery> = [];
 
   constructor(private _http: Http) {}
 
   load() {
+    let headers = this.getHeaders();
+    headers.append("X-Everlive-Sort", JSON.stringify({ ModifiedAt: -1 }));
+
     return this._http.get(Config.apiUrl + "Groceries", {
-      headers: this.getHeaders()
+      headers: headers
     })
     .map(res => res.json())
     .map(data => {
-      let groceryList = [];
       data.Result.forEach((grocery) => {
-        groceryList.push(
+        this._allItems.push(
           new Grocery(
             grocery.Id,
             grocery.Name,
@@ -30,8 +32,8 @@ export class GroceryStore {
             grocery.Deleted || false
           )
         );
+        this.publishUpdates();
       });
-      return groceryList;
     })
     .catch(this.handleErrors);
   }
@@ -44,7 +46,8 @@ export class GroceryStore {
     )
     .map(res => res.json())
     .map(data => {
-      return new Grocery(data.Result.Id, name, false, false);
+      this._allItems.unshift(new Grocery(data.Result.Id, name, false, false));
+      this.publishUpdates();
     })
     .catch(this.handleErrors);
   }
@@ -59,13 +62,20 @@ export class GroceryStore {
   }
 
   setDeleteFlag(item: Grocery) {
-    return this._put(item.id, { Deleted: !item.deleted });
+    return this._put(item.id, { Deleted: true })
+      .map(res => res.json())
+      .map(data => {
+        item.deleted = true;
+        this.publishUpdates();
+      });
   }
 
-  restore(groceries: Array<Grocery>) {
+  restore() {
     let indeces = [];
-    groceries.forEach((grocery) => {
-      indeces.push(grocery.id);
+    this._allItems.forEach((grocery) => {
+      if (grocery.deleted && grocery.done) {
+        indeces.push(grocery.id);
+      }
     });
 
     let headers = this.getHeaders();
@@ -83,11 +93,25 @@ export class GroceryStore {
       }),
       { headers: headers }
     )
+    .map(res => res.json())
+    .map(data => {
+      this._allItems.forEach((grocery) => {
+        if (grocery.deleted && grocery.done) {
+          grocery.deleted = false;
+          grocery.done = false;
+        }
+      });
+      this.publishUpdates();
+    })
     .catch(this.handleErrors);
   }
 
   toggleDoneFlag(item: Grocery) {
-    return this._put(item.id, { Done: !item.done });
+    return this._put(item.id, { Done: !item.done })
+      .map(res => res.json())
+      .map(data => {
+        item.done = !item.done;
+      });
   }
 
   deleteForever(item: Grocery) {
@@ -106,8 +130,17 @@ export class GroceryStore {
     return headers;
   }
 
+  publishUpdates() {
+    this.items.next(this._allItems.filter((item) => {
+      return !item.deleted;
+    }));
+    this.deletedItems.next(this._allItems.filter((item) => {
+      return item.deleted;
+    }));
+  }
+
   handleErrors(error: Response) {
-    console.log(JSON.stringify(error.json()));
+    console.log(error);
     return Observable.throw(error);
   }
 }

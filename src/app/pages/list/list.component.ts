@@ -14,13 +14,12 @@ import {GroceryList} from "./grocery-list.component";
   providers: [GroceryStore]
 })
 export class ListComponent implements OnInit {
-  groceryList: Array<Grocery>;
   grocery: string = "";
 
   isLoading = false;
   isShowingRecent = false;
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router, private store: GroceryStore) {}
 
   ngOnInit() {
     if (!Config.token) {
@@ -41,10 +40,23 @@ export class ListComponent implements OnInit {
       return;
     }
 
-    // Call the store to add
+    this.store.add(this.grocery)
+      .subscribe(() => {
+        this.grocery = "";
+      }, () => {
+        alert("An error occurred while adding a grocery to your list.");
+      });
   }
 
   toggleRecent() {
-    this.isShowingRecent = !this.isShowingRecent;
+    if (this.isShowingRecent) {
+      this.store.restore()
+        .subscribe(
+          () => { this.isShowingRecent = false },
+          () => { alert("An error occurred while adding groceries to your list.") }
+        )
+    } else {
+      this.isShowingRecent = true;
+    }
   }
 }
