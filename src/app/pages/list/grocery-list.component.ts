@@ -3,32 +3,47 @@ import {Grocery} from "../../shared/grocery/grocery";
 import {GroceryStore} from "../../shared/grocery/grocery-list.service";
 import {Observable, BehaviorSubject} from "rxjs/Rx";
 
+@Pipe({
+  name: "itemStatus",
+  pure: false // required to update the value when async in nature
+})
+export class ItemStatusPipe implements PipeTransform {
+  transform(items: Array<Grocery>, deleted: boolean) {
+    if (!items) return;
+    return items.filter((grocery: Grocery) => {
+      return grocery.deleted == deleted;
+    });
+  }
+}
+
 @Component({
   selector: "grocery-list",
   inputs: ["showDeleted", "groceries"],
   template: `
-    <ul *ngIf="!showDeleted">
-      <li *ngFor="let grocery of store.items | async">
+    <ul>
+      <li *ngFor="let grocery of store.items | async | itemStatus:showDeleted">
         <img
+          *ngIf="!grocery.deleted"
           [src]="grocery.done ? './app/assets/images/checked.png' : './app/assets/images/unchecked.png'"
           (click)="toggleDone(grocery)">
         <span
+          *ngIf="!grocery.deleted"
           [class.done]="grocery.done">{{ grocery.name }}</span>
         <button
+          *ngIf="!grocery.deleted"
           (click)="delete(grocery)">&times;</button>
-      </li>
-    </ul>
 
-    <ul *ngIf="showDeleted">
-      <li *ngFor="let grocery of store.deletedItems | async">
         <img
+          *ngIf="grocery.deleted"
           [src]="grocery.done ? './app/assets/images/selected.png' : './app/assets/images/nonselected.png'"
           (click)="toggleDone(grocery)">
-        <span>{{ grocery.name }}</span>
+        <span
+          *ngIf="grocery.deleted">{{ grocery.name }}</span>
       </li>
     </ul>
   `,
-  styleUrls: ["./app/pages/list/grocery-list.css"]
+  styleUrls: ["./app/pages/list/grocery-list.css"],
+  pipes: [ItemStatusPipe]
 })
 export class GroceryList {
   @Input() showDeleted: boolean;

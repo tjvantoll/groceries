@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Headers, Response} from "@angular/http";
+import {Http, Headers, Response, ResponseOptions} from "@angular/http";
 import {Config} from "../config";
 import {Grocery} from "./grocery";
 import {Observable, BehaviorSubject} from "rxjs/Rx";
@@ -9,12 +9,21 @@ import "rxjs/add/operator/map";
 export class GroceryStore {
 
   items: BehaviorSubject<Array<Grocery>> = new BehaviorSubject([]);
-  deletedItems: BehaviorSubject<Array<Grocery>> = new BehaviorSubject([]);
   private _allItems: Array<Grocery> = [];
 
   constructor(private _http: Http) {}
 
   load() {
+    if (!navigator.onLine) {
+      this._allItems = JSON.parse(localStorage.getItem("groceries"));
+      this.publishUpdates();
+      return Observable.create(observer => {
+        observer.next(new Response(
+          new ResponseOptions({ body: {} })
+        ));
+      });
+    }
+
     let headers = this.getHeaders();
     headers.append("X-Everlive-Sort", JSON.stringify({ ModifiedAt: -1 }));
 
@@ -131,12 +140,8 @@ export class GroceryStore {
   }
 
   publishUpdates() {
-    this.items.next(this._allItems.filter((item) => {
-      return !item.deleted;
-    }));
-    this.deletedItems.next(this._allItems.filter((item) => {
-      return item.deleted;
-    }));
+    localStorage.setItem("groceries", JSON.stringify(this._allItems));
+    this.items.next(this._allItems);
   }
 
   handleErrors(error: Response) {
