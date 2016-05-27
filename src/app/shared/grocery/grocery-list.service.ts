@@ -14,7 +14,7 @@ export class GroceryStore {
   constructor(private _http: Http) {}
 
   load() {
-    if (!navigator.onLine) {
+    /*if (!navigator.onLine) {
       this._allItems = JSON.parse(localStorage.getItem("groceries"));
       this.publishUpdates();
       return Observable.create(observer => {
@@ -22,8 +22,7 @@ export class GroceryStore {
           new ResponseOptions({ body: {} })
         ));
       });
-    }
-
+    }*/
     let headers = this.getHeaders();
     headers.append("X-Everlive-Sort", JSON.stringify({ ModifiedAt: -1 }));
 
@@ -141,7 +140,7 @@ export class GroceryStore {
   }
 
   publishUpdates() {
-    localStorage.setItem("groceries", JSON.stringify(this._allItems));
+    // localStorage.setItem("groceries", JSON.stringify(this._allItems));
     this.items.next(this._allItems);
   }
 
