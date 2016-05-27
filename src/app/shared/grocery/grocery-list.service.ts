@@ -71,10 +71,11 @@ export class GroceryStore {
   }
 
   setDeleteFlag(item: Grocery) {
-    return this._put(item.id, { Deleted: true })
+    return this._put(item.id, { Deleted: true, Done: false })
       .map(res => res.json())
       .map(data => {
         item.deleted = true;
+        item.done = false;
         this.publishUpdates();
       });
   }
